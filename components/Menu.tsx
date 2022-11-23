@@ -14,7 +14,7 @@ export function Menu({ session }: Props) {
         <>
           <li className="flex">
             <button
-              className="btn-link mr-6"
+              className="text-cyan-600 mr-6"
               onClick={() => {
                 supabase.auth.signOut();
                 Router.push("/");
@@ -28,7 +28,7 @@ export function Menu({ session }: Props) {
         <>
           <li>
             <Link href="/signin">
-              <a className="btn-link">Sign in with magic link</a>
+              <a className="text-cyan-600">Sign in with magic link</a>
             </Link>
           </li>
         </>

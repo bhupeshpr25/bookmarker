@@ -31,7 +31,7 @@ const BookmarkCard = ({ data }) => {
             </div>
             <a
               className="text-gray-400 my-3 w-48 lg:w-52 break-words
-                line-clamp-2"
+                line-clamp-2 hover:underline"
               href={item.link}
             >
               {item.link}

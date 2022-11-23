@@ -1,56 +1,55 @@
-import { useState } from 'react'
-import { supabase } from '../utils/supabaseClient'
+import { useState } from "react";
+import { supabase } from "../utils/supabaseClient";
 
 export function SigninForm() {
-  const [loading, setLoading] = useState(false)
-  const [email, setEmail] = useState('')
-  const [emailSent, setEmailSent] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [emailSent, setEmailSent] = useState(false);
 
   const handleLogin = async (email: string) => {
     try {
-      setLoading(true)
-      const { error } = await supabase.auth.signIn({ email })
-      if (error) throw error
-      setEmailSent(true)
+      setLoading(true);
+      const { error } = await supabase.auth.signIn({ email });
+      if (error) throw error;
+      setEmailSent(true);
     } catch (error: any) {
-      console.error(error.error_description || error.message)
+      console.error(error.error_description || error.message);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div>
       {emailSent ? (
-        <div className="prose">
+        <div className="text-lg text-center mt-32 text-gray-200 font-semibold">
           <p>An e-mail has been sent to your e-mail address.</p>
-          <p>Please click the link in this mail to sign in.</p>
-          <p>
-            <button className="btn-link" onClick={() => setEmailSent(false)}>
-              Retry
+          <p>Please click the link in the e-mail to sign in.</p>
+          <p className="mt-4">
+            <button
+              className="text-cyan-500"
+              onClick={() => setEmailSent(false)}
+            >
+              send again
             </button>
           </p>
         </div>
       ) : (
         <form
           onSubmit={(e) => {
-            e.preventDefault()
-            handleLogin(email)
+            e.preventDefault();
+            handleLogin(email);
           }}
-          className="flex flex-col space-y-4"
+          className="flex items-center justify-center flex-col space-y-3 mt-32"
         >
-          <p>
-            To sign in or create an account, please enter your email address.
-            You will receive a magic link in your mailbox.
+          <p className="text-gray-200 text-2xl font-bold mb-4">
+            Sign in with magic link
           </p>
-          <div className="form-group">
-            <label className="label" htmlFor="email">
-              E-mail address
-            </label>
+          <div>
             <div>
               <input
                 id="email"
-                className="field"
+                className="rounded-md w-72 p-2 border-cyan-600 border-1"
                 type="email"
                 placeholder="Your email"
                 value={email}
@@ -61,12 +60,16 @@ export function SigninForm() {
             </div>
           </div>
           <div>
-            <button type="submit" className="btn" disabled={loading}>
-              <span>{loading ? 'Processing…' : 'Send magic link'}</span>
+            <button
+              type="submit"
+              className="p-3 bg-cyan-800 text-gray-100 hover:bg-cyan-600 rounded-md"
+              disabled={loading}
+            >
+              <span>{loading ? "Processing…" : "Send magic link"}</span>
             </button>
           </div>
         </form>
       )}
     </div>
-  )
+  );
 }

@@ -33,23 +33,36 @@ export default function App({}) {
   }, []);
 
   if (loading) {
-    return <div>Fetching Bookmarks...</div>;
+    return (
+      <div className="text-lg text-center mt-32 text-gray-700 font-semibold">
+        Fetching Bookmarks...
+      </div>
+    );
   }
   return (
     <Layout session={session}>
       <div>
         {bookmarks?.length === 0 ? (
-          <div>
-            <p>You have no bookmarks yet</p>
+          <div className="text-center mt-32 text-gray-300">
+            <p className="text-xl">You have no bookmarks yet</p>
             <Link href="/create">
-              <button>Create a New Bookmark</button>
+              <button className="text-cyan-600 mt-2 font-semibold">
+                Create a New Bookmark
+              </button>
             </Link>
           </div>
         ) : (
           <div>
-            <p className="text-gray-200 text-xl font-bold flex items-center justify-center">
-              My Bookmarks
-            </p>
+            <div className="">
+              <p className="text-gray-200 text-xl font-bold text-center">
+                My Bookmarks
+              </p>
+              <Link href="/create">
+                <button className="text-gray-100 font-semibold bg-cyan-600 p-2 ml-4 rounded-md">
+                  Create
+                </button>
+              </Link>
+            </div>
             <BookmarkCard data={bookmarks} />
           </div>
         )}

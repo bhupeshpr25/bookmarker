@@ -11,10 +11,14 @@ export default function Home() {
   if (!session) {
     return (
       <Layout session={session}>
-        <p>sign in</p>
-        <Link href="/create">
-          <button> Create a New Bookmark</button>
-        </Link>
+        <div className="text-center">
+          <Link href="/signin">
+            <button className="text-gray-300 mt-32 font-semibold text-xl hover:underline">
+              {" "}
+              Sign in to create a bookmarks
+            </button>
+          </Link>
+        </div>
       </Layout>
     );
   } else {

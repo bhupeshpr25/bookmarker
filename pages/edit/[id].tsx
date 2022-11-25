@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { BsTrash } from "react-icons/bs";
 import { supabase } from "../../utils/supabaseClient";
 
 const Edit = () => {
@@ -72,14 +73,14 @@ const Edit = () => {
           value={bookmark.title}
           onChange={handleOnChange}
         />
-        <label> Load (kg):</label>
+        <label>Link</label>
         <input
           type="text"
           name="link"
           value={bookmark.link}
           onChange={handleOnChange}
         />
-        <label> note:</label>
+        <label>note</label>
         <input
           type="text"
           name="note"
@@ -89,8 +90,9 @@ const Edit = () => {
 
         <button onClick={updateBookmark}>Update bookmark</button>
 
-        <button onClick={() => handleDelete(item.id)}>
-          {/* <BsTrash /> */}delete
+        <button onClick={() => deleteBookmark(item.id)}>
+          <BsTrash />
+          delete
         </button>
       </div>
     </div>

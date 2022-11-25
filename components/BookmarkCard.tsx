@@ -38,11 +38,18 @@ const BookmarkCard = ({ data }) => {
             </a>
             {/* </Link> */}
             {/* <p>note - {item.note}</p> */}
-            <p className="text-gray-500">
-              {formatDistanceToNow(new Date(item.inserted_at), {
-                addSuffix: true,
-              })}
-            </p>
+            <div className="flex justify-between">
+              <p className="text-gray-500">
+                {formatDistanceToNow(new Date(item.inserted_at), {
+                  addSuffix: true,
+                })}
+              </p>
+              <div className="text-gray-500 mt-1">
+                <Link href={`/edit/{item.id}`}>
+                  <FiEdit />
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       ))}

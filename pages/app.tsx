@@ -1,3 +1,4 @@
+import { BsBookmarkPlusFill } from "react-icons/bs";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import BookmarkCard from "../components/BookmarkCard";
@@ -7,7 +8,7 @@ import { supabase } from "../utils/supabaseClient";
 
 export default function App({}) {
   const session = useSession();
-  const [bookmarks, setBookmarks] = useState([]);
+  const [bookmarks, setBookmarks] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   const fetchBookmarks = async () => {
@@ -22,7 +23,7 @@ export default function App({}) {
       if (error) throw error;
       setBookmarks(data);
     } catch (error) {
-      alert(error.message);
+      alert("could not fetch bookmarks");
     } finally {
       setLoading(false);
     }
@@ -39,6 +40,23 @@ export default function App({}) {
       </div>
     );
   }
+
+  const handleDelete = async (id: string) => {
+    try {
+      const user = supabase.auth.user();
+
+      const { data, error } = await supabase
+        .from("bookmarks")
+        .delete()
+        .eq("id", id)
+        .eq("user_id", user?.id);
+      fetchBookmarks();
+      alert("Bookmark deleted successfully");
+    } catch (error) {
+      alert("could not delete bookmark");
+    }
+  };
+
   return (
     <Layout session={session}>
       <div>
@@ -53,17 +71,23 @@ export default function App({}) {
           </div>
         ) : (
           <div>
-            <div className="">
-              <p className="text-gray-200 text-xl font-bold text-center">
-                My Bookmarks
-              </p>
-              <Link href="/create">
-                <button className="text-gray-100 font-semibold bg-cyan-600 p-2 ml-4 rounded-md">
-                  Create
-                </button>
-              </Link>
+            <div className="flex justify-between">
+              <div className="text-right">
+                <Link href="/create">
+                  <button className="flex items-center justify-center space-x-2 text-gray-100 font-semibold bg-cyan-600 p-2 mx-4 rounded-md">
+                    <BsBookmarkPlusFill />
+                    <p>add</p>
+                  </button>
+                </Link>
+              </div>
+              <div className="flex items-center justify-center">
+                <div className="text-gray-200 text-xl font-bold">
+                  My Bookmarks
+                </div>
+              </div>
+              <div></div>
             </div>
-            <BookmarkCard data={bookmarks} />
+            <BookmarkCard data={bookmarks} handleDelete={handleDelete} />
           </div>
         )}
       </div>

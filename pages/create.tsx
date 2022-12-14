@@ -17,7 +17,7 @@ const Create = () => {
 
   const { title, link, note } = bookmarkData;
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBookmarkData({ ...bookmarkData, [e.target.name]: e.target.value });
   };
 
@@ -41,7 +41,7 @@ const Create = () => {
       setBookmarkData(initialState);
       router.push("/");
     } catch (error) {
-      alert(error.message);
+      alert("error");
     }
   };
 
@@ -79,7 +79,7 @@ const Create = () => {
                 placeholder=""
               />
             </div>
-            <div>
+            {/* <div>
               <label className="block mb-1 font-medium text-gray-300">
                 Note
               </label>
@@ -91,7 +91,7 @@ const Create = () => {
                 onChange={handleChange}
                 placeholder=""
               />
-            </div>
+            </div> */}
             <button
               className="w-full p-3 rounded-lg text-gray-50 mt-5 bg-cyan-600 sm:w-auto sm:mt-0"
               onClick={createBookmark}
